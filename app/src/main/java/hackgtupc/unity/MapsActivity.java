@@ -1,8 +1,16 @@
 package hackgtupc.unity;
 
+import android.Manifest;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -37,10 +45,56 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        //mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        mMap.setMyLocationEnabled(true);
 
+        //LocationSource a = (LocationSource) getSystemService(Context.LOCATION_SERVICE);
+        //LocationManager b = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        //map.setLocationSource(a);
+
+        Criteria criteria = new Criteria();
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        String provider = locationManager.getBestProvider(criteria, false);
+        Location location = locationManager.getLastKnownLocation(provider);
+        double lat =  location.getLatitude();
+        double lng = location.getLongitude();
+        LatLng coordinate = new LatLng(lat, lng);
+
+        //CameraPosition.Builder x = CameraPosition.builder();
+        //x.target(coordinate);
+        //x.zoom(13);
+
+        //Projection proj = map.getProjection();
+        //Point focus = proj.toScreenLocation(coordinate);
+
+        //map.animateCamera(CameraUpdateFactory.newLatLng(coordinate));
+        //mMap.animateCamera(CameraUpdateFactory.zoomBy(13));
+        CameraUpdate center=
+                CameraUpdateFactory.newLatLng(new LatLng(lat,
+                        lng));
+        CameraUpdate zoom=CameraUpdateFactory.zoomTo(15);
+
+        mMap.moveCamera(center);
+        mMap.animateCamera(zoom);
+        //map.moveCamera(CameraUpdateFactory.newLatLng(coordinate));
+
+
+        ////LatLngBounds bounds = mMap.getProjection().getVisibleRegion().latLngBounds;
+        /*
         // Add a marker in Sydney and move the camera
         LatLng sydney = new LatLng(-34, 151);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        */
     }
 }
