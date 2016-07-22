@@ -9,6 +9,7 @@ import android.location.LocationManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.view.View;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -26,10 +27,25 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+        //setContentView(R.layout.map2);
+
+         //Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
+        //SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+          //  .findFragmentById(R.id.mapView3);
         mapFragment.getMapAsync(this);
+    }
+
+    public void sabsMode(View v){
+        CameraUpdate center=
+                CameraUpdateFactory.newLatLng(new LatLng(45,45));
+        CameraUpdate zoom=CameraUpdateFactory.zoomTo(20);
+
+        mMap.moveCamera(center);
+        mMap.animateCamera(zoom);
+
+        //zoomout!!!!
     }
 
 
