@@ -86,48 +86,56 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //zoom=CameraUpdateFactory.zoomTo(15);
         //mMap.animateCamera(zoom);
         //zoomout!!!!
-
+        //*******************************************************
+        /*
         new CountDownTimer(1000, 1000) {
             public void onFinish() {
                 // When timer is finished
                 // Execute your code here
-
-                mMap.animateCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition.Builder(mMap.getCameraPosition())
-                        .bearing(0)
-                        .tilt(0)
-                        .zoom(18)
-                        .build()));
+                CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(41.403577, 2.174339));
+                mMap.moveCamera(center);
             }
 
             public void onTick(long millisUntilFinished) {
                 // millisUntilFinished    The amount of time until finished.
             }
         }.start();
-        center = CameraUpdateFactory.newLatLng(new LatLng(41.403577, 2.174339));
+
         Toast.makeText(getBaseContext(), "Sagrada Familia", Toast.LENGTH_LONG)
                 .show();
-        zoom=CameraUpdateFactory.zoomTo(15);
+        zoom=CameraUpdateFactory.zoomTo(18);
         mMap.animateCamera(zoom);
+
         new CountDownTimer(1000, 1000) {
             public void onFinish() {
                 // When timer is finished
                 // Execute your code here
-
-                mMap.animateCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition.Builder(mMap.getCameraPosition())
-                        .bearing(0)
-                        .tilt(0)
-                        .zoom(18)
-                        .build()));
+                CameraUpdate zoom=CameraUpdateFactory.zoomTo(15);
+                mMap.animateCamera(zoom);
             }
 
             public void onTick(long millisUntilFinished) {
                 // millisUntilFinished    The amount of time until finished.
             }
         }.start();
-        center = CameraUpdateFactory.newLatLng(new LatLng(41.412215, 2.174290));
-        Toast.makeText(getBaseContext(), "Hospital Sant Pau", Toast.LENGTH_LONG)
-                .show();
+        new CountDownTimer(1000, 1000) {
+            public void onFinish() {
+                // When timer is finished
+                // Execute your code here
+                CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(41.412215, 2.174290));
+                mMap.moveCamera(center);
+                Toast.makeText(getBaseContext(), "Hospital Sant Pau", Toast.LENGTH_LONG)
+                        .show();
+                CameraUpdate zoom=CameraUpdateFactory.zoomTo(18);
+                mMap.animateCamera(zoom);
+            }
 
+            public void onTick(long millisUntilFinished) {
+                // millisUntilFinished    The amount of time until finished.
+            }
+        }.start();
+
+*/
 
 
     }
