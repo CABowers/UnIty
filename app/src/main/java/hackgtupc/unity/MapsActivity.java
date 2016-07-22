@@ -6,22 +6,34 @@ import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.CountDownTimer;
+import android.os.SystemClock;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import static hackgtupc.unity.R.id.map;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,16 +49,90 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
     }
 
+
     public void sabsMode(View v){
         CameraUpdate center=
-                CameraUpdateFactory.newLatLng(new LatLng(45,45));
-        CameraUpdate zoom=CameraUpdateFactory.zoomTo(20);
+                CameraUpdateFactory.newLatLng(new LatLng(41.406167, 2.175490));
 
         mMap.moveCamera(center);
+
+        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition.Builder(mMap.getCameraPosition())
+                .bearing(0)
+                .tilt(0)
+                .build()));
+
+        CameraUpdate zoom=CameraUpdateFactory.zoomTo(18);
         mMap.animateCamera(zoom);
 
+        Toast.makeText(getBaseContext(), "L'Eixample", Toast.LENGTH_LONG)
+                .show();
+
+
+        new CountDownTimer(1000, 1000) {
+            public void onFinish() {
+                // When timer is finished
+                // Execute your code here
+                mMap.animateCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition.Builder(mMap.getCameraPosition())
+                        .bearing(0)
+                        .tilt(0)
+                        .zoom(15)
+                        .build()));
+            }
+
+            public void onTick(long millisUntilFinished) {
+                // millisUntilFinished    The amount of time until finished.
+            }
+        }.start();
+        //zoom=CameraUpdateFactory.zoomTo(15);
+        //mMap.animateCamera(zoom);
         //zoomout!!!!
+
+        new CountDownTimer(1000, 1000) {
+            public void onFinish() {
+                // When timer is finished
+                // Execute your code here
+
+                mMap.animateCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition.Builder(mMap.getCameraPosition())
+                        .bearing(0)
+                        .tilt(0)
+                        .zoom(18)
+                        .build()));
+            }
+
+            public void onTick(long millisUntilFinished) {
+                // millisUntilFinished    The amount of time until finished.
+            }
+        }.start();
+        center = CameraUpdateFactory.newLatLng(new LatLng(41.403577, 2.174339));
+        Toast.makeText(getBaseContext(), "Sagrada Familia", Toast.LENGTH_LONG)
+                .show();
+        zoom=CameraUpdateFactory.zoomTo(15);
+        mMap.animateCamera(zoom);
+        new CountDownTimer(1000, 1000) {
+            public void onFinish() {
+                // When timer is finished
+                // Execute your code here
+
+                mMap.animateCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition.Builder(mMap.getCameraPosition())
+                        .bearing(0)
+                        .tilt(0)
+                        .zoom(18)
+                        .build()));
+            }
+
+            public void onTick(long millisUntilFinished) {
+                // millisUntilFinished    The amount of time until finished.
+            }
+        }.start();
+        center = CameraUpdateFactory.newLatLng(new LatLng(41.412215, 2.174290));
+        Toast.makeText(getBaseContext(), "Hospital Sant Pau", Toast.LENGTH_LONG)
+                .show();
+
+
+
     }
+
+
 
 
     /**
